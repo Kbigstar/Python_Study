@@ -56,4 +56,3 @@ for i, v in enumerate(arr):
 # for문 3 (단순 반복)
 for i in range(3):  # 0, 1, 2
     print(i)
-
