@@ -1,6 +1,5 @@
 import random
 
-
 # 기본함수 def
 def fn_lotto(user_num):
     arr = []
@@ -10,10 +9,8 @@ def fn_lotto(user_num):
             lotto.add(random.randint(1, 45))
             if len(lotto) == 6:
                 break
-            arr.append(lotto)
+        arr.append(lotto)
     return arr
-
-
 if __name__ == '__main__':
     print("모듈 자체실행")
 else:
