@@ -1,2 +1,4 @@
 #  ignored
 python_gui/build/*
+*.db
+*.sql

@@ -9,7 +9,7 @@ sql = { 'select_data': '''
                   '''
        }
 # 정해진 시간 마다
-# 조회 종목의 현재가를 수집하여 stock_price 테이블에 저장
+# 조회 종목의 현재가를 수집하여 stock_price 테이블에 저장 함.
 
 import cx_Oracle
 import naver_price
@@ -24,7 +24,8 @@ def fn_current_price():
        # print("수집 시작!")
        # print(datetime.datetime.now())
        log.info("fn_current_price start!!")
-       conn = cx_Oracle.connect("study", "study", "127.0.0.1:1521/xe")
+       # conn = cx_Oracle.connect("study", ?, "127.0.0.1:1521/xe")
+       # 실행시 ? <-- 비밀번호로 바꾸기
        cur = conn.cursor()
        cur.execute(sql['select_data'])
        rows = cur.fetchall()

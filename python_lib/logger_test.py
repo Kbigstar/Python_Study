@@ -6,7 +6,7 @@ log.info("info test")
 log.warning("warning test")
 
 try:
-    result = 2/0
+    result = 2 / 0
 except Exception as e:
     log.exception(str(e))
 

@@ -2,7 +2,7 @@ import logging
 # 로그 파일 생성
 # 소프트웨어나 시스템 실행중 발생하는 이벤트를 시간 순서대로 기록한 파일
 # 버그 추적 / 사용자 활동 모니터링 및 다양한 용도로 사용
-# 로그레벨 (warning, error, info, debug...)
+# 로그레벨 (warning, error, info, debug....)
 
 def make_logger(fileNm, name=None):
     # 로그 생성

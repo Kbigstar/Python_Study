@@ -1,7 +1,9 @@
 # pip install cx_Oracle
 import cx_Oracle
 import csv
-conn = cx_Oracle.connect("study", "study", "127.0.0.1:1521/xe")
+
+# conn = cx_Oracle.connect("study", ?, "127.0.0.1:1521/xe")
+# 실행시 ? <-- 비밀번호로 바꾸기
 # 파일경로
 csv_path = 'kospi_list.csv'
 dict_list = []

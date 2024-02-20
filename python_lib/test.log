@@ -1,10 +1,10 @@
-2024-02-20 15:50:54,074 - logger_test ÆÄÀÏ - DEBUG - (message)s)
-2024-02-20 15:50:54,074 - logger_test ÆÄÀÏ - INFO - (message)s)
-2024-02-20 15:50:54,074 - logger_test ÆÄÀÏ - WARNING - (message)s)
-2024-02-20 15:50:54,074 - logger_test ÆÄÀÏ - ERROR - (message)s)
+2024-02-20 15:50:54,074 - logger_test ï¿½ï¿½ï¿½ï¿½ - DEBUG - (message)s)
+2024-02-20 15:50:54,074 - logger_test ï¿½ï¿½ï¿½ï¿½ - INFO - (message)s)
+2024-02-20 15:50:54,074 - logger_test ï¿½ï¿½ï¿½ï¿½ - WARNING - (message)s)
+2024-02-20 15:50:54,074 - logger_test ï¿½ï¿½ï¿½ï¿½ - ERROR - (message)s)
 Traceback (most recent call last):
   File "C:\dev\pythonProject\pythonProject\python_lib\logger_test.py", line 9, in <module>
     result = 2/0
              ~^~
 ZeroDivisionError: division by zero
-2024-02-20 15:50:54,077 - logger_test ÆÄÀÏ - CRITICAL - (message)s)
+2024-02-20 15:50:54,077 - logger_test ï¿½ï¿½ï¿½ï¿½ - CRITICAL - (message)s)

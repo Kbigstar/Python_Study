@@ -36,7 +36,7 @@ first_weekday, num_days = calendar.monthrange(year, month)
 # 2024년 2월 첫번쨰 요일 목요일 : 3 / 끝나는일 29일 반환
 print(f"{year}년 {month}월")
 print("월 화 수 목 금 토 일")
-# 첫째날 시작 요일까지 공백으로
+# 첫째날 시작 요일까지 공백으로 출력
 print("   "* first_weekday, end="")
 # 1일 부터 마지막날 까지 출력
 for day in range(1, num_days + 1):
