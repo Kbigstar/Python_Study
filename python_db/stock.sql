@@ -25,7 +25,7 @@ from stock;
 
 UPDATE stock
 SET use_yn ='Y'
-WHERE name LIKE '%�Ｚ%';
+WHERE name LIKE '%�Ｚ%';
 SELECT *
 FROM stock
 WHERE USE_YN ='Y';
