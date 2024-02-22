@@ -7,7 +7,7 @@ class DBManager:
     def get_connection(self):
         self.conn = cx_Oracle.connect("study", "?"
                                       , "localhost:1521/xe")
-        # "?" 안에 비밀번호 쓰기!
+        # 실행 시 "?" 안에 비밀번호 쓰기!
         print("DB 접속됨.")
         return self.conn
     def __del__(self):
