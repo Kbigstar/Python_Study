@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btn").click(function(){
+                let subUrl = "http://192.168.0.16:5555/naver" // IPv4 주소
+                let query = $("#search").val();
+
+                $.ajax({
+                url : subUrl
+                , type : "POST"
+                , data : JSON.stringify({'query' : query})
+                , dataType : 'json'
+                , success : function(res){
+                    console.log(res);
+                }, error(e){
+                    console.log(e);
+                }
+             });
+         });
+      });
+
+    </script>
+</head>
+<body>
+<!-- 검색어의 내용을 naver api를 이용해서 출력
+    1. ajax로 app.py로 요청
+-->
+    <form>
+        검색어 : <input type="text" id="search">
+        <button type="button" id="btn"> 검색 </button>
+    </form>
+
+    <div>
+         <table id="tb">
+
+         </table>
+    </div>
+</body>
+</html>

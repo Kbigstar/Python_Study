@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/file_upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" value="파일선택" onchange="fn_preview(event)">
+        <input type="submit" value="저장"><br>
+        <img id="preview" src="" alt="파일없음">
+
+    </form>
+
+    <script>
+        function fn_preview(event){
+            let reader = new FileReader();
+            reader.onload = function(e){
+                document.getElementById("preview").src=e.target.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+    </script>
+
+</body>
+</html>
