@@ -1,7 +1,7 @@
 import requests
 
-CLIENT_ID = ""  # Naver Developers Client ID
-SECRET = ""  # Naver Developers Client Secret
+CLIENT_ID = "" # Naver Developers Client ID
+SECRET = "" # Naver Developers Client Secret
 def get_naver(query):
     s = 1
     url = "https://openapi.naver.com/v1/search/blog?query={0}&start={1}&display=100".format(query, s)

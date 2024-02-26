@@ -53,7 +53,7 @@ def naver():
         print(result)
         return result
     else:
-        return  render_template("naver_search.html")
+        return render_template("naver_search.html")
 
 
 
