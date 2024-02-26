@@ -15,6 +15,7 @@
                 , type : "POST"
                 , data : JSON.stringify({'query' : query})
                 , dataType : 'json'
+                , contentType : 'application/json'
                 , success : function(res){
                     console.log(res);
                 }, error(e){
@@ -37,8 +38,16 @@
 
     <div>
          <table id="tb">
+             <tbody>
+<!--             {% for v in result %}-->
+             <tr>
+
+             </tr>
+
+             </tbody>
 
          </table>
     </div>
+
 </body>
 </html>

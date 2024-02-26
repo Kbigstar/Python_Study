@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 import requests
 import json
 from werkzeug.utils import secure_filename
-
+from naver import get_naver
 app = Flask(__name__)
 
 @app.route("/")
@@ -47,10 +47,15 @@ def file_upload():
 @app.route("/naver",  methods=['GET', 'POST'])
 def naver():
     if request == 'POST':
-        print(request)
-        return render_template("naver_search.html")
+        data = request.get_json()
+        print(data['query'])
+        result = get_naver(data['query'])
+        print(result)
+        return result
     else:
         return  render_template("naver_search.html")
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5555, host='192.168.0.16')
