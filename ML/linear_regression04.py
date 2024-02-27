@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 x1 = [2, 4, 6, 8]
 x2 = [0, 4, 2, 3]
 y = [81, 93, 91, 97]
+
 ax = plt.axes(projection='3d')
 ax.set_xlabel('study')
 ax.set_ylabel('private')
@@ -13,6 +14,7 @@ ax.set_zlabel('score')
 ax.dist=11
 ax.scatter(x1, x2, y)
 plt.show()
+
 x1_data = np.array(x1)
 x2_data = np.array(x2)
 y_data = np.array(y)
@@ -21,6 +23,7 @@ a2 = 0  # x2 기울기
 b = 0  # y절편 초기값
 lr = 0.05     # 학습률(학습률과, 이폭크는 연구자가 정함[hyperparameter])
 epochs = 2001 # 학습데이터에 대해서 몇번 학습할지
+
 for i in range(epochs):
     y_hat = a1 * x1_data + a2 * x2_data + b
     error = y_data - y_hat #실제값과 예측값 차이
@@ -32,15 +35,15 @@ for i in range(epochs):
     b = b - lr * b_diff # 학습률을 곱하여 b 업데이트
     if i % 100 == 0:
         print("epochs=%.f, 기울기 a1=%.04f,a2=%.04f, y절편=%.04f"%(i,a1,a2,b))
+
 y_pred = a1 * x1_data+a2 * x2_data + b
 print(y_pred)
 
 
-# pip install statsmodels
 
+# pip install statsmodels
 import statsmodels.api as statm
 import statsmodels.formula.api as statfa
-# pip install statsmodels
 import pandas as pd
 #from matplotlib.pyplot import figure
 data = [[2, 0, 81], [4, 4, 93], [6, 2, 91], [8, 3, 97]]
