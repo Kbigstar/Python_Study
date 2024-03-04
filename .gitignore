@@ -1,3 +1,5 @@
 #  ignored
 python_gui/build/*
 *.db
+*.h5
+*.weights
