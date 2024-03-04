@@ -29,28 +29,28 @@ test_generator = test_gen.flow_from_directory(test_dir
 class_num = len(train_generator.class_indices)
 # 클래스의 명칭
 labels = list(train_generator.class_indices.keys())
-# vgg16은 1000개의 클래스로 pre-training 되어진 모델(사전학습된)
-# 사전학습된 모델을 새로운 목적으로 변경 하는것은 fine-tuning 이라고 함.
-vgg_layer = VGG16(weights='imagenet'
-                  , include_top=False, input_shape=(224, 224, 3))
-vgg_layer.summary()
-for layer in vgg_layer.layers:
-    layer.trainable = False # 잘 학습되어진 부분은 학습되지 않도록 고정
-# 새로운 모델 생성
-model = Sequential()
-model.add(vgg_layer) # pre-training 되어진 layer 추가
-model.add(Flatten())
-model.add(Dense(1024, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(class_num, activation='softmax'))
+
+from keras.models import load_model
+from keras.utils import load_img, img_to_array
+import matplotlib.pyplot as plt
+import numpy as np
+
+model = load_model('dental_model.h5')
 model.summary()
 
-model.compile(loss='categorical_crossentropy', optimizer='adam'
-              ,metrics=['acc'])
-model.fit_generator(train_generator
-    ,steps_per_epoch=train_generator.samples/ train_generator.batch_size
-    ,epochs=50
-    ,validation_data=test_generator
-    ,validation_steps=test_generator.samples/ test_generator.batch_size
-    ,verbose=1)
-model.save('dental_model.h5')
+
+def fn_predict(p_model, p_file):
+    image = load_img(p_file, target_size=(224, 224))
+    plt.imshow(image)
+    plt.show()
+    # 학습된 모델의 input shape으로
+    test_image = img_to_array(image).reshape((1, 224, 224, 3))
+    pred = p_model.predict(test_image)
+    idx = np.argmax(pred)
+    pred_cls = labels[idx]
+    print(pred_cls, pred[0][idx] * 100)
+
+import os
+path = './dental_image/test/cured/'
+for f in os.listdir(path):
+    fn_predict(model, path + f)
