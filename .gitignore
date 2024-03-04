@@ -3,3 +3,5 @@ python_gui/build/*
 *.db
 *.h5
 *.weights
+DNN/obejctDetection/model.h5
+DNN/obejctDetection/yolov3.weights
