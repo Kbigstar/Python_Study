@@ -7,43 +7,39 @@
     <script>
         $(document).ready(function(){
             $("#btn").click(function(){
-                var formData = new FormData();
-                formData.append("file", $("#file")[0].files[0]);
-
-                $.ajax({
-                    url : '/upload'
-                   ,type : 'POST'
-                   ,data : formData
-                   ,contentType : false
-                   ,processData : false
-                   ,success : function(res){
-                        console.log(res);
-                   },error : function(res){
-                        console.log(res);
-                   }
-
-                });
+                    var formData = new FormData();
+                    formData.append('file',$('#file')[0].files[0]);
+                    $.ajax({
+                            url : '/upload'
+                           ,type :'POST'
+                           ,data : formData
+                           ,contentType:false
+                           ,processData:false
+                           ,success:function(res){
+                               console.log(res);
+                           },error:function(e){
+                               console.log(e);
+                           }
+                    });
             });
         });
     </script>
 </head>
 <body>
     <form enctype="multipart/form-data">
-        <input type="file" name="file" id="file" value="파일선택" onchange="fn_preview(event)">
-        <input type="button" value="전송" id="btn"> <br>
+        <input type="file" name="file" id="file" onchange="fn_preview(event)">
+        <input type="button" value="전송" id="btn"><br>
         <img src="" id="preview">
     </form>
     <div id="result"></div>
-
     <script>
         function fn_preview(event){
-            let reader = new FileReader();
-            reader.onload = function(e){
-                document.getElementById("preview").src=e.target.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
+              let reader = new FileReader();
+              reader.onload = function(e){
+                  document.getElementById("preview").src=e.target.result;
+              }
+              reader.readAsDataURL(event.target.files[0]);
+          }
     </script>
 </body>
 </html>

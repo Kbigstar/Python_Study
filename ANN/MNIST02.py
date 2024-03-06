@@ -38,12 +38,4 @@ loss = histroy.history['loss']
 print(f'학습 acc:{model.evaluate(x_train_reshape, y_train_cate)}')
 print(f'테스트 acc:{model.evaluate(x_test_reshape, y_test_cate)}')
 
-# 모델 저장
-model.save("./model/ANN.h5")
-# 결과 그래프 출력
-cnt = np.arange(len(v_loss))
-plt.plot(cnt, v_loss, marker='.', c='red', label='test_loss')
-plt.plot(cnt, loss, marker='.', c='blue', label='loss')
-plt.xlabel('epoch')
-plt.ylabel('loss')
-plt.show()
+

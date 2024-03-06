@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageOps
-
+# pip install pillow
 
 def apply_filter(input_img, kernel):
     output_img = np.copy(input_img)
