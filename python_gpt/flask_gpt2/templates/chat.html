@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with AI Assistant</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chat.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="chatContainer">
+        <div id="messagesContainer"></div>
+        <div id="inputContainer">
+            <input type="text" id="userInput" placeholder="Enter your message...">
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function scrollToBottom() {
+            $('#messagesContainer').scrollTop($('#messagesContainer')[0].scrollHeight);
+        }
+
+        $(document).ready(function() {
+            $('#sendBtn').click(function() {
+                var userInput = $('#userInput').val();
+                $('#userInput').val(''); // Clear input box after sending
+                var userMessage = '<div class="message user-message">' + userInput + '</div>';
+                $('#messagesContainer').append(userMessage);
+                scrollToBottom();
+
+                $.ajax({
+                    url: '/ask',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({text: userInput}),
+                    success: function(response) {
+                        var botMessage = '<div class="message bot-message">' + response.response + '</div>';
+                        $('#messagesContainer').append(botMessage);
+                        scrollToBottom();
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
