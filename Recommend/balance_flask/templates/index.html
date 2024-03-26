@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Game</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/style.css')}}">
+</head>
+
+<body>
+    <div id="start-div">
+        <input type="text" id="userNm" placeholder="닉네임">
+        <input type="text" id="userEmail" placeholder="이메일">
+        <button id="start-btn">게임 시작</button>
+    </div>
+    <div class="balance-game container" style="display: none;">
+        <div>
+            <h4>주제는 :<span id="cate">일상</span></h4>
+            <h5><span id="msg" data-q=""></span>
+                <p>당신의 선택은?</p>
+            </h5>
+        </div>
+        <div class="options">
+            <div class="option left-option">
+                <p id="left_content" class="pb-3"> </p>
+                <button class="select-btn btn" data-sel="A">선택</button>
+            </div>
+            <div class="option center-option">
+                <p class="pb-3">50 : 50 </p>
+                <button class="next-btn btn" data-sel="N">반반</button>
+            </div>
+            <div class="option right-option">
+                <p class="pb-3" id="right_content"> </p>
+                <button class="select-btn btn" data-sel="B">선택</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var stage = 0;      // 현재
+        var stageSize = 0; // 전체 사이즈
+        var contentObj;   // 문제
+        var answer = []; // 응답
+
+                $(document).ready(function() {
+                    $("#start-div").click(function() {
+                        $.ajax({
+                             url : "http://localhost:5000/start"
+                            ,type : "GET"
+                            ,success : function(res){
+                                contentObj = res;
+                                stageSize = res.length;
+                                fn_set(contentObj[stage]);
+                                $("#start-div").hide('slow');
+                                $(".balance-game").show('slow');
+                            }, error : function(e){
+                                console.log(e)
+                            }
+                        });
+                      
+                    });
+
+                    // 선택시
+                    $(".btn").click(function(){
+                        stage += 1;
+                        // 선택문제 id, 선택값
+                        answer.push([$("#msg").attr("data-q"), $(this).attr("data-sel")]);
+
+                        if(stage < stageSize){
+                            fn_set(contentObj[stage]);
+                        }else{
+                            alert("문제 끝!!");
+                            // console.log(answer);
+                            $.ajax({
+                                url : "http://localhost:5000/save"
+                                ,type : "POST"
+                                ,contentType : "application/json"
+                                , data : JSON.stringify({
+                                    email : $("#userEmail").val()
+                                    ,nickNm : $("#userNm").val()
+                                    ,answers : answer
+                                })
+                                , success:function(res){
+                                    console.log(res);
+                                }, error : function(e){
+                                    console.log(e);
+                                }
+                            })
+                        }
+
+                    })
+                });
+
+                function fn_set(obj){
+                    $("#msg").text(obj['content']); // 주제
+                    $("#msg").attr("data-q", obj['q_id']); // 문제 id
+                    $("#left_content").text(obj['option_a']);
+                    $("#right_content").text(obj['option_b']);
+                }
+
+    </script>
+</body>
+
+</html>
