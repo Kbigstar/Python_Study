@@ -38,6 +38,9 @@
             </div>
         </div>
     </div>
+    <div id="end-div" style="display:none">
+
+    </div>
     <script>
         var stage = 0;      // 현재
         var stageSize = 0; // 전체 사이즈
@@ -47,7 +50,7 @@
                 $(document).ready(function() {
                     $("#start-div").click(function() {
                         $.ajax({
-                             url : "http://localhost:5000/start"
+                             url : "http://192.168.0.16:5000/start"
                             ,type : "GET"
                             ,success : function(res){
                                 contentObj = res;
@@ -74,7 +77,7 @@
                             alert("문제 끝!!");
                             // console.log(answer);
                             $.ajax({
-                                url : "http://localhost:5000/save"
+                                url : "http://192.168.0.16:5000/save"
                                 ,type : "POST"
                                 ,contentType : "application/json"
                                 , data : JSON.stringify({
@@ -84,6 +87,12 @@
                                 })
                                 , success:function(res){
                                     console.log(res);
+                                    $(".balance-game").hide("slow");
+                                    $("#end-div").append("<h1>" + $("#userEmail").val() + "님과 가까운 친구" + "</h1>" );
+                                    $(res.result).each(function(i, v){
+                                        $("#end-div").append("<p>" + v[0] + ":" + v[1] + "</p>");
+                                    });
+                                    $("#end-div").show();
                                 }, error : function(e){
                                     console.log(e);
                                 }
