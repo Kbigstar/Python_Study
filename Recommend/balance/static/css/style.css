@@ -1,0 +1,65 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f8;
+    font-family: 'Arial', sans-serif;
+}
+
+.balance-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.options {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.select-btn, .next-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px; /* 버튼과 텍스트 사이의 간격 */
+}
+
+.select-btn {
+    background-color: #ffd3e2;
+}
+#start-btn{
+    background-color: #a2d2ff;
+    border-color:gray ;
+}
+.select-btn:hover {
+    background-color: #ffbed8;
+}
+
+.next-btn {
+    background-color: #a2d2ff;
+}
+
+.next-btn:hover {
+    background-color: #90c8f8;
+}
+
+p {
+    margin: 0; /* 텍스트의 마진을 제거하여 더 깔끔하게 만듭니다. */
+}

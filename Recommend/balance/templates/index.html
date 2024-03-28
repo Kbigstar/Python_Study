@@ -50,7 +50,7 @@
                 $(document).ready(function() {
                     $("#start-div").click(function() {
                         $.ajax({
-                             url : "http://192.168.0.16:5000/start"
+                             url : "http://3.35.208.62:5000/start"
                             ,type : "GET"
                             ,success : function(res){
                                 contentObj = res;
@@ -77,7 +77,7 @@
                             alert("문제 끝!!");
                             // console.log(answer);
                             $.ajax({
-                                url : "http://192.168.0.16:5000/save"
+                                url : "http://3.35.208.62:5000/save"
                                 ,type : "POST"
                                 ,contentType : "application/json"
                                 , data : JSON.stringify({

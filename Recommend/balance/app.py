@@ -1,34 +1,24 @@
+import sqlite3
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from DBManager import DBManager
 from sklearn.metrics.pairwise import cosine_similarity
-
 
 app = Flask(__name__)
 CORS(app)
 
-db = DBManager()
 sel = """ SELECT * FROM tb_questions """
 merge_1 = """
-    MERGE INTO tb_user a
-    USING DUAL
-    ON (email = :1)
-    WHEN MATCHED THEN
-        UPDATE SET nick_name = :2
-    WHEN NOT MATCHED THEN
-        INSERT (email, nick_name)
-        VALUES(:3, :4)
+    INSERT INTO tb_user (email, nick_name)
+    VALUES (?, ?)
+    ON CONFLICT(email) DO UPDATE SET
+    nick_name=excluded.nick_name
 """
 merge_2 = """
-    MERGE INTO tb_response a
-    USING DUAL
-    ON (a.email = :1
-       AND a.q_id = :2)
-    WHEN MATCHED THEN
-        UPDATE SET a.select_option = :3
-    WHEN NOT MATCHED THEN
-        INSERT (a.email, a.q_id, a.select_option) VALUES(:4, :5, :6)
+    INSERT INTO tb_response(email, q_id, select_option)
+    VALUES(?, ?, ?) 
+    ON CONFLICT(email, q_id) DO UPDATE SET
+    select_option = excluded.select_option
 """
 
 sql_user = """ 
@@ -41,25 +31,27 @@ sql_user = """
     WHERE a.email = b.email
  """
 
-
-q = pd.read_sql(con=db.conn, sql=sel)
+conn = sqlite3.connect("letter.db", check_same_thread=False)
+q = pd.read_sql(con=conn, sql=sel)
 print(q.head())
 
 # DB에서 조회
 questions = []
 for i, v in q.iterrows():
-    questions.append({'q_id' : v['Q_ID']
-                      ,'contents' : v['Q_CONTENTS']
-                      ,'option_a' : v['OPTION_A']
-                      ,'option_b' : v['OPTION_B']})
+    questions.append({'q_id' : v['q_id']
+                      ,'contents' : v['q_content']
+                      ,'option_a' : v['option_a']
+                      ,'option_b' : v['option_b']})
 
 def fn_get_data(target):
-    df = pd.read_sql(con=db.conn, sql=sql_user)
+    df = pd.read_sql(con=conn, sql=sql_user)
     option_mapping = {'A': 0, 'B': 1, 'N': 0.5}
-    df['SELECT_VALUE'] = df['SELECT_OPTION'].map(option_mapping)
+    df['select_value'] = df['select_option'].map(option_mapping)
     print(df.head())
 
-    matrix = df.pivot_table(index='EMAIL', columns='Q_ID', values='SELECT_VALUE')
+    matrix = df.pivot_table(index='email', columns='q_id', values='select_value')
+    # matrix.dropna(inplace=True) # NaN 값을 포함하는 행 제거
+    matrix.fillna(0, inplace=True)
     sim_matrix = cosine_similarity(matrix)
     print(sim_matrix)
 
@@ -95,13 +87,16 @@ def save_result():
 
     try:
         # tb_user MERGE
-        db.insert(merge_1, [email, nick, email, nick])
+        cursor = conn.cursor()
+        cursor.execute(merge_1, (email, nick))
 
         # tb_responce MERGE
         for answer in answers:
-            p_id = answer[0]
+            q_id = answer[0]
             result = answer[1]
-            db.insert(merge_2, [email, p_id, result, email, p_id, result])
+            cursor.execute(merge_2, (email, q_id, result))
+        cursor.close()
+        conn.commit()
     except Exception as e:
         print(str(e))
     sim_list = fn_get_data(email)
