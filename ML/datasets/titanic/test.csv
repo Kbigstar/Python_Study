@@ -111,7 +111,7 @@ PassengerId,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
 1001,2,"Swane, Mr. George",male,18.5,0,0,248734,13,F,S
 1002,2,"Stanton, Mr. Samuel Ward",male,41,0,0,237734,15.0458,,C
 1003,3,"Shine, Miss. Ellen Natalia",female,,0,0,330968,7.7792,,Q
-1004,1,"Evans, Miss. Edith Corse",female,36,0,0,PC 17531,31.6792,A29,C
+1004,1,"Evans, Miss. Edith e",female,36,0,0,PC 17531,31.6792,A29,C
 1005,3,"Buckley, Miss. Katherine",female,18.5,0,0,329944,7.2833,,Q
 1006,1,"Straus, Mrs. Isidor (Rosalie Ida Blun)",female,63,1,0,PC 17483,221.7792,C55 C57,S
 1007,3,"Chronopoulos, Mr. Demetrios",male,18,1,0,2680,14.4542,,C

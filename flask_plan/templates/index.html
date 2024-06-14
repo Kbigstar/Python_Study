@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Classification</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <style>
+        .image-preview-container {
+            position: relative;
+            display: inline-block; /* 캔버스와 텍스트 오버레이를 위한 컨테이너 */
+        }
+        .image-preview {
+            max-width: 100%; /* 화면 너비에 맞게 최대 너비 설정 */
+            border: 1px solid #ccc; /* 테두리 추가 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1); /* 그림자 효과 추가 */
+            margin-top: 20px; /* 상단 여백 추가 */
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: blue;
+            background-color: rgba(255, 255, 255, 0.5); /* 텍스트 배경을 약간 투명하게 */
+            visibility: hidden; /* 기본적으로 숨김 */
+            pointer-events: none; /* 마우스 이벤트가 뒤의 캔버스로 통과하도록 */
+            font-size: 14px;
+            font-family: Arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>플랜</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="text" id="query">
+        <input type="button" value="요청" id="btn">
+    </form><br>
+    <div id="results" >
+    </div>
+    <script>
+        $(document).ready(function(){
+             $("#btn").click(function(){
+                 var query = $("#query").val();
+                 var plan = [{
+                                "calAllday": "false",
+                                "calBgcolor": "#000000",
+                                "calNo": 202,
+                                "calStartdt": "2024-03-14T09:00",
+                                "calEnddt": "2024-03-14T16:00",
+                                "calTextcolor": "#ffffff",
+                                "calTitle": "개인프로젝트 준비",
+                                "delYn": "N",
+                                "memId": "kbs",
+                            }];
+                 $.ajax({
+                    type: "POST",
+                    url: "/gpt",
+                    data :JSON.stringify({query:query, user_plan:plan}),
+                    dataType : 'json',
+                    success: function(res){
+                        console.log(res);
+                    },
+                    error:function(e){
+                        console.log(e);
+                    }
+                });
+             });
+        });
+
+    </script>
+    <div id="result"></div>
+</body>
+</html>

@@ -104,7 +104,7 @@ pclass,survived,name,sex,age,sibsp,parch,ticket,fare,cabin,embarked,boat,body,ho
 1,1,"Earnshaw, Mrs. Boulton (Olive Potter)",female,23,0,1,11767,83.1583,C54,C,7,,"Mt Airy, Philadelphia, PA"
 1,1,"Endres, Miss. Caroline Louise",female,38,0,0,PC 17757,227.525,C45,C,4,,"New York, NY"
 1,1,"Eustis, Miss. Elizabeth Mussey",female,54,1,0,36947,78.2667,D20,C,4,,"Brookline, MA"
-1,0,"Evans, Miss. Edith Corse",female,36,0,0,PC 17531,31.6792,A29,C,,,"New York, NY"
+1,0,"Evans, Miss. Edith e",female,36,0,0,PC 17531,31.6792,A29,C,,,"New York, NY"
 1,0,"Farthing, Mr. John",male,,0,0,PC 17483,221.779,C95,S,,,
 1,1,"Flegenheim, Mrs. Alfred (Antoinette)",female,,0,0,PC 17598,31.6833,,S,7,,"New York, NY"
 1,1,"Fleming, Miss. Margaret",female,,0,0,17421,110.883,,C,4,,
